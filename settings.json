@@ -2,6 +2,32 @@
   "model": "opus",
   "statusLine": {
     "type": "command",
-    "command": "sh ~/.claude/statusline-command.sh"
+    "command": "sh /Users/smith/.claude/statusline-command.sh"
+  },
+  "hooks": {
+    "Notification": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "printf '\\e[22;0t\\e]0;⚠️ NEEDS APPROVAL\\a' > /dev/tty"
+          },
+          {
+            "type": "command",
+            "command": "osascript -e 'if application \"iTerm\" is running then' -e 'tell application \"System Events\"' -e 'set frontApp to name of first application process whose frontmost is true' -e 'end tell' -e 'if frontApp is not \"iTerm2\" then' -e 'display notification \"Claude is waiting for your approval\" with title \"Claude Code\" sound name \"Ping\"' -e 'end if' -e 'end if'"
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "printf '\\e[23;0t' > /dev/tty"
+          }
+        ]
+      }
+    ]
   }
 }
