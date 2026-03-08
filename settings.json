@@ -28,6 +28,16 @@
           }
         ]
       }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "printf '\\e[23;0t' > /dev/tty"
+          }
+        ]
+      }
     ]
   }
 }
