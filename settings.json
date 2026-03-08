@@ -14,7 +14,7 @@
           },
           {
             "type": "command",
-            "command": "osascript -e 'if application \"iTerm\" is running then' -e 'tell application \"System Events\"' -e 'set frontApp to name of first application process whose frontmost is true' -e 'end tell' -e 'if frontApp is not \"iTerm2\" then' -e 'display notification \"Claude is waiting for your approval\" with title \"Claude Code\" sound name \"Ping\"' -e 'end if' -e 'end if'"
+            "command": "osascript -e 'if application \"iTerm\" is running then' -e 'tell application \"iTerm\"' -e 'if not frontmost then' -e 'display notification \"Claude is waiting for your approval\" with title \"Claude Code\" sound name \"Ping\"' -e 'end if' -e 'end tell' -e 'end if'"
           }
         ]
       }
@@ -37,7 +37,7 @@
           },
           {
             "type": "command",
-            "command": "osascript -e 'if application \"iTerm\" is running then' -e 'tell application \"System Events\"' -e 'set frontApp to name of first application process whose frontmost is true' -e 'end tell' -e 'if frontApp is not \"iTerm2\" then' -e 'display notification \"Claude is waiting for your approval\" with title \"Claude Code\" sound name \"Ping\"' -e 'end if' -e 'end if'"
+            "command": "osascript -e 'if application \"iTerm\" is running then' -e 'tell application \"iTerm\"' -e 'if not frontmost then' -e 'display notification \"Claude is waiting for your approval\" with title \"Claude Code\" sound name \"Ping\"' -e 'end if' -e 'end tell' -e 'end if'"
           }
         ]
       }
