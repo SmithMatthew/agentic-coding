@@ -4,6 +4,8 @@ set -e
 CLAUDE_DIR="$HOME/.claude"
 SETTINGS_FILE="$CLAUDE_DIR/settings.json"
 STATUSLINE_SCRIPT="$CLAUDE_DIR/statusline-command.sh"
+NOTIFY_SCRIPT="$CLAUDE_DIR/notify.sh"
+RESET_TAB_SCRIPT="$CLAUDE_DIR/reset-tab-title.sh"
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 
 # Check for jq
@@ -16,9 +18,13 @@ fi
 # Ensure ~/.claude directory exists
 mkdir -p "$CLAUDE_DIR"
 
-# Copy statusline script
+# Copy scripts
 cp "$SCRIPT_DIR/statusline-command.sh" "$STATUSLINE_SCRIPT"
 echo "Copied statusline-command.sh to $STATUSLINE_SCRIPT"
+cp "$SCRIPT_DIR/notify.sh" "$NOTIFY_SCRIPT"
+echo "Copied notify.sh to $NOTIFY_SCRIPT"
+cp "$SCRIPT_DIR/reset-tab-title.sh" "$RESET_TAB_SCRIPT"
+echo "Copied reset-tab-title.sh to $RESET_TAB_SCRIPT"
 
 # Extract hooks and statusLine from repo settings, fixing the hardcoded path
 REPO_SETTINGS=$(jq '{hooks, statusLine}' "$SCRIPT_DIR/settings.json" \
@@ -47,4 +53,6 @@ echo "Installation complete! Restart Claude Code to apply changes."
 echo ""
 echo "Installed:"
 echo "  - Status line script: $STATUSLINE_SCRIPT"
+echo "  - Notification script: $NOTIFY_SCRIPT"
+echo "  - Tab title reset script: $RESET_TAB_SCRIPT"
 echo "  - Hooks and status line config: $SETTINGS_FILE"

@@ -10,11 +10,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "printf '\\e[22;0t\\e]0;⚠️ NEEDS APPROVAL\\a' > /dev/tty"
-          },
-          {
-            "type": "command",
-            "command": "osascript -e 'if application \"iTerm\" is running then' -e 'tell application \"iTerm\"' -e 'if not frontmost then' -e 'display notification \"Claude is waiting for your approval\" with title \"Claude Code\" sound name \"Ping\"' -e 'end if' -e 'end tell' -e 'end if'"
+            "command": "sh /Users/smith/.claude/notify.sh"
           }
         ]
       }
@@ -24,7 +20,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "printf '\\e[23;0t' > /dev/tty"
+            "command": "sh /Users/smith/.claude/reset-tab-title.sh"
           }
         ]
       },
@@ -33,11 +29,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "printf '\\e[22;0t\\e]0;⚠️ NEEDS APPROVAL\\a' > /dev/tty"
-          },
-          {
-            "type": "command",
-            "command": "osascript -e 'if application \"iTerm\" is running then' -e 'tell application \"iTerm\"' -e 'if not frontmost then' -e 'display notification \"Claude is waiting for your approval\" with title \"Claude Code\" sound name \"Ping\"' -e 'end if' -e 'end tell' -e 'end if'"
+            "command": "sh /Users/smith/.claude/notify.sh"
           }
         ]
       }
@@ -47,7 +39,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "printf '\\e[23;0t' > /dev/tty"
+            "command": "sh /Users/smith/.claude/reset-tab-title.sh"
           }
         ]
       }
