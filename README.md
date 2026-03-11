@@ -13,12 +13,13 @@ My personal [Claude Code](https://docs.anthropic.com/en/docs/claude-code) config
 
 ## Usage
 
-Copy the files to your Claude Code config directory:
+Run the install script:
 
 ```sh
-cp settings.json ~/.claude/settings.json
-cp statusline-command.sh ~/.claude/statusline-command.sh
+sh install.sh
 ```
+
+This copies the scripts to `~/.claude/` and merges the hooks and status line config into your existing `settings.json` (backing it up first). Any existing hooks you have are preserved.
 
 Then restart Claude Code. The status line will appear at the bottom of your terminal showing:
 

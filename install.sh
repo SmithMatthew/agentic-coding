@@ -26,22 +26,28 @@ echo "Copied notify.sh to $NOTIFY_SCRIPT"
 cp "$SCRIPT_DIR/reset-tab-title.sh" "$RESET_TAB_SCRIPT"
 echo "Copied reset-tab-title.sh to $RESET_TAB_SCRIPT"
 
-# Extract hooks and statusLine from repo settings, fixing the hardcoded path
-REPO_SETTINGS=$(jq '{hooks, statusLine}' "$SCRIPT_DIR/settings.json" \
-  | sed "s|/Users/smith/.claude/|$HOME/.claude/|g")
+# Extract hooks and statusLine from repo settings
+REPO_SETTINGS=$(jq '{hooks, statusLine}' "$SCRIPT_DIR/settings.json")
 
 if [ -f "$SETTINGS_FILE" ]; then
   # Back up existing settings
   cp "$SETTINGS_FILE" "$SETTINGS_FILE.bak"
   echo "Backed up existing settings to $SETTINGS_FILE.bak"
 
-  # Merge hooks and statusLine into existing settings
-  MERGED=$(jq -s '.[0] * .[1]' "$SETTINGS_FILE" - <<EOF
+  # Deep merge: shallow-override top-level keys, but append (deduplicate) hook arrays
+  MERGED=$(jq -s '
+    .[0].hooks as $existing |
+    .[1].hooks as $new |
+    .[0] * .[1] |
+    .hooks = ($new | to_entries | reduce .[] as $e (
+      ($existing // {});
+      .[$e.key] = ((.[$e.key] // []) + $e.value | unique_by(tojson))
+    ))' "$SETTINGS_FILE" - <<EOF
 $REPO_SETTINGS
 EOF
   )
   echo "$MERGED" > "$SETTINGS_FILE"
-  echo "Merged hooks and statusLine into $SETTINGS_FILE"
+  echo "Merged hooks and statusLine into $SETTINGS_FILE (existing hooks preserved)"
 else
   # Create new settings file with just hooks and statusLine
   echo "$REPO_SETTINGS" > "$SETTINGS_FILE"

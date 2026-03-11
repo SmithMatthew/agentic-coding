@@ -2,7 +2,7 @@
   "model": "opus",
   "statusLine": {
     "type": "command",
-    "command": "sh /Users/smith/.claude/statusline-command.sh"
+    "command": "sh $HOME/.claude/statusline-command.sh"
   },
   "hooks": {
     "Notification": [
@@ -10,7 +10,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "sh /Users/smith/.claude/notify.sh"
+            "command": "sh $HOME/.claude/notify.sh"
           }
         ]
       }
@@ -20,7 +20,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "sh /Users/smith/.claude/reset-tab-title.sh"
+            "command": "sh $HOME/.claude/reset-tab-title.sh"
           }
         ]
       },
@@ -29,7 +29,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "sh /Users/smith/.claude/notify.sh"
+            "command": "sh $HOME/.claude/notify.sh"
           }
         ]
       }
@@ -39,7 +39,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "sh /Users/smith/.claude/reset-tab-title.sh"
+            "command": "sh $HOME/.claude/reset-tab-title.sh"
           }
         ]
       }
