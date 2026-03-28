@@ -1,6 +1,17 @@
 #!/bin/sh
 input=$(cat)
 
+# Debounce: if notify.sh was called within the last 2 seconds, exit early
+# to prevent double notifications when both PreToolUse and Notification hooks fire
+LOCK_FILE="/tmp/claude-notify-lock"
+if [ -f "$LOCK_FILE" ]; then
+  lock_age=$(( $(date +%s) - $(stat -f %m "$LOCK_FILE" 2>/dev/null || echo 0) ))
+  if [ "$lock_age" -lt 2 ]; then
+    exit 0
+  fi
+fi
+touch "$LOCK_FILE"
+
 # Extract cwd and compute short directory + git branch
 cwd=$(echo "$input" | jq -r '.cwd // empty')
 if [ -n "$cwd" ]; then
