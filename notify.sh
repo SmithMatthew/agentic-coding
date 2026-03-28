@@ -1,6 +1,23 @@
 #!/bin/sh
-# Save the current tab title and set it to "NEEDS APPROVAL"
-printf '\e[22;0t\e]0;⚠️ NEEDS APPROVAL\a' > /dev/tty
+input=$(cat)
+
+# Extract cwd and compute short directory + git branch
+cwd=$(echo "$input" | jq -r '.cwd // empty')
+if [ -n "$cwd" ]; then
+  short_cwd=$(echo "$cwd" | awk -F'/' '{n=NF; if(n<=3) print $0; else print ".../" $(n-2) "/" $(n-1) "/" $n}')
+  branch=$(git -C "$cwd" --no-optional-locks symbolic-ref --short HEAD 2>/dev/null)
+  if [ -n "$branch" ]; then
+    location="$short_cwd ($branch)"
+  else
+    location="$short_cwd"
+  fi
+  title="⚠️ NEEDS APPROVAL | $location"
+else
+  title="⚠️ NEEDS APPROVAL"
+fi
+
+# Save the current tab title and set it to the approval title
+printf '\e[22;0t\e]0;%s\a' "$title" > /dev/tty
 
 # Determine the terminal app's process name for frontmost-check
 case "$TERM_PROGRAM" in
