@@ -22,7 +22,7 @@ if [ -n "$cwd" ]; then
   else
     location="$short_cwd"
   fi
-  title="⚠️ NEEDS APPROVAL | $location"
+  title="⚠️  | $location"
 else
   title="⚠️ NEEDS APPROVAL"
 fi
